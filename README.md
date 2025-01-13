@@ -23,6 +23,11 @@ https://github.com/NONO6202/Discord-Bot
 
 이렇게 Total seconds가 나오면 완료 된것이다.
 
+![image](https://github.com/user-attachments/assets/33bba540-1118-41c6-8dd0-1c682a9d3f41)
+
+이렇게 추가적으로 녹음을 넣고 돌려도 상관이 없다
+
+
 ---
 ### 전사과정 결과물
 ![image](https://github.com/user-attachments/assets/ad72a085-0001-438d-b789-a0a363d80b17)
