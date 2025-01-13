@@ -12,13 +12,13 @@ model = whisper.load_model("large-v3-turbo").to("cuda")
 folders = [item for item in os.listdir(filepath) if os.path.isdir(os.path.join(filepath, item)) and item.isdigit()]
 if not folders: largest_folder = 0
 else: largest_folder = int(max(folders, key=int))+1
-    
+
 rename_count = largest_folder
 for element in os.listdir(filepath):
     if os.path.splitext(element)[1] == '.wav':
         os.rename(f"{filepath}/{element}", f"{filepath}/{rename_count:05d}.wav")
         rename_count += 1
-        
+
 def average_db(audio_path, sr=22050):
     """오디오 파일의 평균 데시벨을 계산"""
     y, sr = librosa.load(audio_path, sr=sr)
@@ -37,7 +37,6 @@ def split_audio(name_count, min_segment_len=0.66):
     y, sr = librosa.load(input_file, sr=22050, mono=True)
     
     avg_db = average_db(input_file, sr=sr)
-    print(avg_db)
     silence_threshold = avg_db - 10
     
     intervals = librosa.effects.split(y, top_db=-silence_threshold, frame_length=int(sr * 0.01), hop_length=int(sr * 0.01))
@@ -62,7 +61,7 @@ def split_audio(name_count, min_segment_len=0.66):
     return total_time
 
 total_time = 0
-for i in range(largest_folder,largest_folder+rename_count):
+for i in range(largest_folder,rename_count):
     total_time += split_audio(i)
     output_dir = f"{filepath}/{i:05d}"
     
