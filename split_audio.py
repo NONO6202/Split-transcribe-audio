@@ -11,10 +11,8 @@ model = whisper.load_model("large-v3-turbo").to("cuda")
 
 folders = [item for item in os.listdir(filepath) if os.path.isdir(os.path.join(filepath, item)) and item.isdigit()]
 if not folders: largest_folder = 0
-else: 
-    largest_folder = int(max(folders, key=int))
+else: largest_folder = int(max(folders, key=int))+1
     
-
 rename_count = largest_folder
 for element in os.listdir(filepath):
     if os.path.splitext(element)[1] == '.wav':
