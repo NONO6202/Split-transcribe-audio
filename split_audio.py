@@ -9,7 +9,13 @@ import numpy as np
 filepath = os.path.dirname(os.path.abspath(__file__))
 model = whisper.load_model("large-v3-turbo").to("cuda")
 
-rename_count = 0
+folders = [item for item in os.listdir(filepath) if os.path.isdir(os.path.join(filepath, item)) and item.isdigit()]
+if not folders: largest_folder = 0
+else: 
+    largest_folder = int(max(folders, key=int))
+    
+
+rename_count = largest_folder
 for element in os.listdir(filepath):
     if os.path.splitext(element)[1] == '.wav':
         os.rename(f"{filepath}/{element}", f"{filepath}/{rename_count:05d}.wav")
@@ -58,7 +64,7 @@ def split_audio(name_count, min_segment_len=0.66):
     return total_time
 
 total_time = 0
-for i in range(rename_count):
+for i in range(largest_folder,largest_folder+rename_count):
     total_time += split_audio(i)
     output_dir = f"{filepath}/{i:05d}"
     
